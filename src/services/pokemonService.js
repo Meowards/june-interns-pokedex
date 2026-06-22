@@ -1,6 +1,5 @@
 import * as pokemonRepository from '../repositories/pokemonRepository.js';
 import { config } from '../config/index.js';
-
 /**
  * "mr-mime" -> "Mr Mime"
  */
@@ -22,7 +21,6 @@ const formatStatName = (name) => {
   };
   return statNames[name] || formatName(name);
 };
-
 /**
  * Transform raw PokeAPI data into a display-ready object.
  */
@@ -72,7 +70,6 @@ const formatPokemonData = (pokemon, species = null) => {
     baseHappiness: species?.base_happiness || 0
   };
 };
-
 /**
  * Get a single, fully-formatted Pokemon. Returns null if not found.
  */
@@ -91,7 +88,6 @@ export const getPokemonDetails = async (nameOrId) => {
 
   return formatPokemonData(pokemon, species);
 };
-
 /**
  * Paginated list of Pokemon with full details for each entry.
  */
@@ -112,7 +108,6 @@ export const getAllPokemon = async (page = 1, limit = config.pagination.defaultL
     hasPrevPage: page > 1
   };
 };
-
 /**
  * Search by name. Tries an exact match first, then a partial-name search.
  */
@@ -141,7 +136,6 @@ export const searchPokemon = async (query) => {
     totalCount: searchResults.count
   };
 };
-
 /**
  * All selectable types (special types removed), formatted for display.
  */
@@ -183,7 +177,3 @@ export const getPokemonByType = async (
     hasPrevPage: page > 1
   };
 };
-
-const pokemonWithDetails = await Promise.all(
-  data.results.map((pokemon) => getPokemonDetails(pokemon.name))
-);
